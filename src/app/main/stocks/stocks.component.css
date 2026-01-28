@@ -61,6 +61,7 @@
 
 .search-input {
     width: 100%;
+    height: 75px;
     padding: 1rem 3rem 1rem 1.5rem;
     background: var(--bg-card);
     border: 2px solid var(--border-color);
@@ -95,7 +96,7 @@
     align-items: center;
     gap: 1rem;
     background: var(--bg-card);
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
     border-radius: var(--border-radius);
     border: 2px solid var(--border-color);
     backdrop-filter: blur(10px);
@@ -163,7 +164,7 @@
 }
 
 .stat-value {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
 }

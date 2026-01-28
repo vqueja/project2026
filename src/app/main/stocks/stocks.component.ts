@@ -173,6 +173,10 @@ export class StocksComponent implements OnInit {
       .subscribe({
         next: (response) => {
           // Update local state
+          if (!response) {
+            console.error('No response received');
+            return;
+          }
           this.allStocks.update(stocks =>
             stocks.map(s =>
               s.ticker === ticker
