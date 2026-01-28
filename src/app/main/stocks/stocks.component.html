@@ -1,0 +1,105 @@
+<div class="app-container">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">
+                <span class="logo-icon">📈</span>
+                Dividend Stocks PH
+            </h1>
+            <p class="tagline">Philippine Dividend Stock Directory</p>
+        </div>
+    </header>
+
+    <!-- Controls -->
+    <div class="controls-section">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search stocks by name or symbol..."
+                [ngModel]="searchTerm()" (ngModelChange)="onSearch($event)" aria-label="Search stocks">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-controls">
+            <label for="sortSelect" class="filter-label">Sort by:</label>
+            <select id="sortSelect" class="sort-select" [ngModel]="sortBy()" (ngModelChange)="onSortChange($event)">
+                <option value="symbol">Symbol (A-Z)</option>
+                <option value="name">Company Name</option>
+                <option value="dividendYield">Dividend Yield</option>
+                <option value="price">Stock Price</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-value">{{ totalStocks() }}</div>
+            <div class="stat-label">Total Stocks</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ formatPercentage(avgYield()) }}%</div>
+            <div class="stat-label">Avg Dividend Yield</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ displayedStocks() }}</div>
+            <div class="stat-label">Displayed</div>
+        </div>
+    </div>
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading dividend stocks...</p>
+    </div>
+    }
+    <!-- Error State -->
+    @if (error() && !isLoading()) {
+    <div class="error-container">
+        <div class="error-icon">⚠️</div>
+        <h2 class="error-title">Unable to Load Stocks</h2>
+        <p class="error-message">{{ error() }}</p>
+        <button class="retry-button" (click)="retry()">Retry</button>
+    </div>
+    }
+    <!-- Stocks Grid -->
+    @if (!isLoading() && !error()) {
+    <div class="stocks-grid">
+        <div class="stock-card" *ngFor="let stock of filteredStocks()">
+            <div class="stock-header">
+                <div class="stock-symbol">{{ stock.ticker }}</div>
+                <div class="stock-badge">{{ stock.sector || 'General' }}</div>
+            </div>
+            <div class="stock-name">{{ getStockName(stock) }}</div>
+            <div class="stock-details">
+                <div class="detail-row">
+                    <span class="detail-label">Stock Price</span>
+                    <div class="price-container" *ngIf="editingStockTicker() !== stock.ticker"
+                        (click)="$event.stopPropagation()">
+                        <span class="detail-value price">₱{{ formatPrice(getStockPrice(stock)) }}</span>
+                        <button class="edit-btn" (click)="startEditing(stock)" title="Edit Price">✎</button>
+                    </div>
+                    <div class="edit-container" *ngIf="editingStockTicker() === stock.ticker"
+                        (click)="$event.stopPropagation()">
+                        <input type="number" [ngModel]="editPriceValue()" (ngModelChange)="editPriceValue.set($event)"
+                            class="edit-input" (keydown.enter)="savePrice(stock.ticker)"
+                            (keydown.escape)="cancelEditing()">
+                        <button class="action-btn save-btn" (click)="savePrice(stock.ticker)" title="Save">✓</button>
+                        <button class="action-btn cancel-btn" (click)="cancelEditing()" title="Cancel">✕</button>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Dividend Yield</span>
+                    <span class="detail-value highlight">{{ formatPercentage(getStockYield(stock)) }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading() && !error() && filteredStocks().length === 0">
+        <div class="empty-icon">📊</div>
+        <h2 class="empty-title">No stocks found</h2>
+        <p class="empty-message">Try adjusting your search criteria</p>
+    </div>
+</div>

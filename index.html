@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dividend Stocks PH - Explore Philippine dividend-paying stocks with comprehensive data and insights">
+    <title>Dividend Stocks PH - Philippine Dividend Stock Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">
+                    <span class="logo-icon">📈</span>
+                    Dividend Stocks PH
+                </h1>
+                <p class="tagline">Philippine Dividend Stock Directory</p>
+            </div>
+        </header>
+
+        <!-- Controls -->
+        <div class="controls-section">
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search stocks by name or symbol..."
+                    aria-label="Search stocks"
+                >
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filter-controls">
+                <label for="sortSelect" class="filter-label">Sort by:</label>
+                <select id="sortSelect" class="sort-select">
+                    <option value="symbol">Symbol (A-Z)</option>
+                    <option value="name">Company Name</option>
+                    <option value="dividendYield">Dividend Yield</option>
+                    <option value="price">Stock Price</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Stats Summary -->
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card">
+                <div class="stat-value" id="totalStocks">-</div>
+                <div class="stat-label">Total Stocks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgYield">-</div>
+                <div class="stat-label">Avg Dividend Yield</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="displayedStocks">-</div>
+                <div class="stat-label">Displayed</div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="spinner"></div>
+            <p class="loading-text">Loading dividend stocks...</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-container" id="errorContainer" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h2 class="error-title">Unable to Load Stocks</h2>
+            <p class="error-message" id="errorMessage"></p>
+            <button class="retry-button" id="retryButton">Retry</button>
+        </div>
+
+        <!-- Stocks Grid -->
+        <div class="stocks-grid" id="stocksGrid"></div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="empty-icon">📊</div>
+            <h2 class="empty-title">No stocks found</h2>
+            <p class="empty-message">Try adjusting your search criteria</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
