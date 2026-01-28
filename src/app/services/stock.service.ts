@@ -8,15 +8,15 @@ import { environment } from '../../environment/environment';
     providedIn: 'root'
 })
 export class StockService {
-    private apiUrl = environment.apiUrl + '/api/stocks';
+    private baseUrl = environment.apiUrl + '/api/stocks';
 
     constructor(private http: HttpClient) { }
 
     getStocks(): Observable<Stock[]> {
-        return this.http.get<Stock[]>(this.apiUrl);
+        return this.http.get<Stock[]>(this.baseUrl);
     }
 
     updateStockPrice(ticker: string, newPrice: number): Observable<any> {
-        return this.http.patch(`${this.apiUrl}/${ticker}`, { newPrice });
+        return this.http.patch(`${this.baseUrl}/${ticker}`, { newPrice });
     }
 }

@@ -26,7 +26,6 @@
     font-weight: 700;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 0.5rem;
     display: flex;
@@ -37,6 +36,10 @@
 
 .logo-icon {
     font-size: 2.5rem;
+}
+
+.logo-text {
+    -webkit-text-fill-color: transparent;
 }
 
 .tagline {
