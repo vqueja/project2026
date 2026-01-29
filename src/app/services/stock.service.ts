@@ -16,7 +16,7 @@ export class StockService {
         return this.http.get<Stock[]>(this.baseUrl);
     }
 
-    updateStockPrice(ticker: string, newPrice: number): Observable<any> {
-        return this.http.patch(`${this.baseUrl}/${ticker}`, { newPrice });
+    updateStockPrice(ticker: string, newPrice: number): Observable<Stock> {
+        return this.http.patch<Stock>(`${this.baseUrl}/${ticker}`, { newPrice });
     }
 }

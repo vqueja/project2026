@@ -20,7 +20,19 @@
         "lib": [
             "ES2022",
             "dom"
-        ]
+        ],
+        "baseUrl": "./", // Necessary for paths to work
+        "paths": {
+            "@app/*": [
+                "src/app/*"
+            ],
+            "@home/*": [
+                "src/app/home/*"
+            ],
+            "@layout/*": [
+                "src/app/layout/*"
+            ]
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

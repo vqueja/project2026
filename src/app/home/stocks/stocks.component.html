@@ -1,14 +1,6 @@
 <div class="app-container">
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <h1 class="logo">
-                <span class="logo-icon">📈</span>
-                <span class="logo-text">Dividend Stocks PH</span>
-            </h1>
-            <p class="tagline">Philippine Dividend Stock Directory</p>
-        </div>
-    </header>
+    <app-header></app-header>
+    <a routerLink="/">Back to Home</a>
 
     <!-- Controls -->
     <div class="controls-section">
@@ -68,13 +60,13 @@
                 <div class="stock-symbol">{{ stock.ticker }}</div>
                 <div class="stock-badge">{{ stock.sector || 'General' }}</div>
             </div>
-            <div class="stock-name">{{ getStockName(stock) }}</div>
+            <div class="stock-name">{{ stock.company_name }}</div>
             <div class="stock-details">
                 <div class="detail-row">
                     <span class="detail-label">Stock Price</span>
                     <div class="price-container" *ngIf="editingStockTicker() !== stock.ticker"
                         (click)="$event.stopPropagation()">
-                        <span class="detail-value price">₱{{ formatPrice(getStockPrice(stock)) }}</span>
+                        <span class="detail-value price">₱{{ stock.current_price | number:'1.2-2' }}</span>
                         <button class="edit-btn" (click)="startEditing(stock)" title="Edit Price">✎</button>
                     </div>
                     <div class="edit-container" *ngIf="editingStockTicker() === stock.ticker"
