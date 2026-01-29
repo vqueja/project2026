@@ -1,0 +1,105 @@
+<div class="app-container">
+    <app-header></app-header>
+    <a routerLink="/">Back to Home</a>
+
+    <div class="controls-section">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search REITs by name or symbol..."
+                [ngModel]="searchTerm()" (ngModelChange)="onSearch($event)" aria-label="Search REITs">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="filter-controls">
+            <label for="sortSelect" class="filter-label">Sort by:</label>
+            <select id="sortSelect" class="sort-select" [ngModel]="sortBy()" (ngModelChange)="onSortChange($event)">
+                <option value="symbol">Symbol (A-Z)</option>
+                <option value="name">Company Name</option>
+                <option value="dividend">Annual Dividend</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-value">{{ totalReits() }}</div>
+            <div class="stat-label">Total REITs</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">{{ displayedReits() }}</div>
+            <div class="stat-label">Displayed</div>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading REITs data...</p>
+    </div>
+    }
+
+    @if (error() && !isLoading()) {
+    <div class="error-container">
+        <div class="error-icon">⚠️</div>
+        <h2 class="error-title">Unable to Load REITs</h2>
+        <p class="error-message">{{ error() }}</p>
+        <button class="retry-button" (click)="retry()">Retry</button>
+    </div>
+    }
+
+    @if (!isLoading() && !error()) {
+    <div class="reits-grid">
+        @for (reit of filteredReits(); track reit.ticker) {
+        <div class="reit-card">
+            <div class="reit-header">
+                <div class="reit-symbol">{{ reit.ticker }}</div>
+                <div class="reit-badge">REIT</div>
+            </div>
+            <div class="reit-name">{{ reit.company }}</div>
+
+            <div class="reit-details">
+                <div class="detail-row main-detail">
+                    <span class="detail-label">Annual Dividend ({{ getLatestYear(reit) }})</span>
+                    <span class="detail-value highlight">₱{{ getLatestAnnualDividend(reit) | number:'1.2-4' }}</span>
+                </div>
+
+                <div class="history-summary">
+                    <div class="history-title">Quarterly Distribution</div>
+                    <div class="quarter-grid" *ngIf="getLatestHistory(reit) as current">
+                        <div class="quarter">
+                            <span class="q-label">Q1</span>
+                            <span class="q-value">₱{{ current.Q1 | number:'1.2-4' }}</span>
+                        </div>
+                        <div class="quarter">
+                            <span class="q-label">Q2</span>
+                            <span class="q-value">₱{{ current.Q2 | number:'1.2-4' }}</span>
+                        </div>
+                        <div class="quarter">
+                            <span class="q-label">Q3</span>
+                            <span class="q-value">₱{{ current.Q3 | number:'1.2-4' }}</span>
+                        </div>
+                        <div class="quarter">
+                            <span class="q-label">Q4</span>
+                            <span class="q-value">₱{{ current.Q4 | number:'1.2-4' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        } @empty {
+        <div class="empty-state">
+            <div class="empty-icon">🏢</div>
+            <h2 class="empty-title">No REITs found</h2>
+            <p class="empty-message">Try adjusting your search criteria</p>
+        </div>
+        }
+    </div>
+    }
+
+    @if (!isLoading() && !error() && filteredReits().length === 0) {
+    <div class="empty-state">
+        <div class="empty-icon">🏢</div>
+        <h2 class="empty-title">No REITs found</h2>
+        <p class="empty-message">Try adjusting your search criteria</p>
+    </div>
+    }
+</div>

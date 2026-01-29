@@ -16,10 +16,10 @@ import { HTTP_STATUS, HTTP_ERROR_MESSAGES } from '@app/core/constants/http-error
   selector: 'app-stocks',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, RouterLink, Header, CurrencyPipe],
-  templateUrl: './stocks.component.html',
-  styleUrl: './stocks.component.css'
+  templateUrl: './stocks.html',
+  styleUrl: './stocks.css'
 })
-export class StocksComponent {
+export class Stocks {
   private stockService = inject(StockService);
   private destroyRef = inject(DestroyRef);
   allStocks = signal<Stock[]>([]);
@@ -128,16 +128,8 @@ export class StocksComponent {
   }
 
   private handleHttpError(err: HttpErrorResponse) {
-    // Logic for specific status codes
-    if (err.status === HTTP_STATUS.UNAUTHORIZED) {
-      this.error.set('Your session expired. Please log in.');
-    } else if (err.status === HTTP_STATUS.NOT_FOUND) {
-      this.error.set('The stock data source could not be found.');
-    } else {
-      // Fallback to the generic map we created earlier
-      const message = HTTP_ERROR_MESSAGES[err.status] || 'An unexpected error occurred.';
-      this.error.set(message);
-    }
+    const message = HTTP_ERROR_MESSAGES[err.status] || 'An unexpected error occurred.';
+    this.error.set(message);
   }
 
   private sortStocks(stocks: Stock[]): Stock[] {
@@ -168,20 +160,8 @@ export class StocksComponent {
     return sorted;
   }
 
-  getStockName(stock: Stock): string {
-    return stock.company_name;
-  }
-
-  getStockPrice(stock: Stock): number {
-    return stock.current_price;
-  }
-
   getStockYield(stock: Stock): number {
     return parseFloat(stock.dividend_yield.replace('%', ''));
-  }
-
-  formatPrice(price: number): string {
-    return price.toFixed(2);
   }
 
   formatPercentage(value: number): string {

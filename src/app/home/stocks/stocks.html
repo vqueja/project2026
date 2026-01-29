@@ -2,7 +2,6 @@
     <app-header></app-header>
     <a routerLink="/">Back to Home</a>
 
-    <!-- Controls -->
     <div class="controls-section">
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Search stocks by name or symbol..."
@@ -21,7 +20,6 @@
         </div>
     </div>
 
-    <!-- Stats Summary -->
     <div class="stats-container">
         <div class="stat-card">
             <div class="stat-value">{{ totalStocks() }}</div>
@@ -36,14 +34,14 @@
             <div class="stat-label">Displayed</div>
         </div>
     </div>
-    <!-- Loading State -->
+
     @if (isLoading()) {
     <div class="loading-container">
         <div class="spinner"></div>
         <p class="loading-text">Loading dividend stocks...</p>
     </div>
     }
-    <!-- Error State -->
+
     @if (error() && !isLoading()) {
     <div class="error-container">
         <div class="error-icon">⚠️</div>
@@ -52,7 +50,7 @@
         <button class="retry-button" (click)="retry()">Retry</button>
     </div>
     }
-    <!-- Stocks Grid -->
+
     @if (!isLoading() && !error()) {
     <div class="stocks-grid">
         <div class="stock-card" *ngFor="let stock of filteredStocks()">
@@ -64,19 +62,20 @@
             <div class="stock-details">
                 <div class="detail-row">
                     <span class="detail-label">Stock Price</span>
-                    <div class="price-container" *ngIf="editingStockTicker() !== stock.ticker"
-                        (click)="$event.stopPropagation()">
+                    @if (editingStockTicker() !== stock.ticker) {
+                    <div class="price-container" (click)="$event.stopPropagation()">
                         <span class="detail-value price">₱{{ stock.current_price | number:'1.2-2' }}</span>
                         <button class="edit-btn" (click)="startEditing(stock)" title="Edit Price">✎</button>
                     </div>
-                    <div class="edit-container" *ngIf="editingStockTicker() === stock.ticker"
-                        (click)="$event.stopPropagation()">
+                    } @else {
+                    <div class="edit-container" (click)="$event.stopPropagation()">
                         <input type="number" [ngModel]="editPriceValue()" (ngModelChange)="editPriceValue.set($event)"
                             class="edit-input" (keydown.enter)="savePrice(stock.ticker)"
                             (keydown.escape)="cancelEditing()">
                         <button class="action-btn save-btn" (click)="savePrice(stock.ticker)" title="Save">✓</button>
                         <button class="action-btn cancel-btn" (click)="cancelEditing()" title="Cancel">✕</button>
                     </div>
+                    }
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Dividend Yield</span>
@@ -87,11 +86,12 @@
     </div>
     }
 
-
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="!isLoading() && !error() && filteredStocks().length === 0">
+    @if (!isLoading() && !error() && filteredStocks().length === 0) {
+    <div class="empty-state">
         <div class="empty-icon">📊</div>
         <h2 class="empty-title">No stocks found</h2>
         <p class="empty-message">Try adjusting your search criteria</p>
     </div>
+    }
+
 </div>

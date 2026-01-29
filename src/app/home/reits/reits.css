@@ -1,0 +1,301 @@
+.controls-section {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    height: 75px;
+    padding: 1rem 3rem 1rem 1.5rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    backdrop-filter: blur(10px);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-icon {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+.filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    padding: 1rem 1rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    backdrop-filter: blur(10px);
+}
+
+.filter-label {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.sort-select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ========== Stats ========== */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+.stat-card:nth-child(1) .stat-value {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card:nth-child(2) .stat-value {
+    background: var(--success-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========== Grid ========== */
+.reits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.reit-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.reit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--success-gradient);
+}
+
+.reit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.reit-symbol {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--success-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.reit-badge {
+    padding: 0.25rem 0.75rem;
+    background: rgba(46, 213, 115, 0.2);
+    border: 1px solid var(--accent-green);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reit-name {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    min-height: 2.8em;
+}
+
+.reit-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(46, 213, 115, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(46, 213, 115, 0.1);
+}
+
+.detail-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.detail-value.highlight {
+    color: var(--accent-green);
+}
+
+/* ========== History Summary ========== */
+.history-summary {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.history-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.quarter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.quarter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.q-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.q-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ========== States ========== */
+.loading-container,
+.error-container,
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--border-color);
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--accent-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.retry-button {
+    padding: 1rem 2rem;
+    background: var(--success-gradient);
+    border: none;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .controls-section {
+        flex-direction: column;
+    }
+
+    .reits-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
-import { StocksComponent } from "./home/stocks/stocks.component";
+import { Stocks } from "./home/stocks/stocks";
 import { Home } from "./home/home";
+import { Reits } from "./home/reits/reits";
 
 const routeConfig: Routes = [
     {
@@ -9,7 +10,11 @@ const routeConfig: Routes = [
     },
     {
         path: 'stocks',
-        component: StocksComponent
+        component: Stocks
+    },
+    {
+        path: 'reits',
+        component: Reits
     }
 ];
 

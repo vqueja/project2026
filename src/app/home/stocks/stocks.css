@@ -286,7 +286,6 @@
 .detail-value.highlight {
     background: var(--success-gradient);
     -webkit-background-clip: text;
-    /* -webkit-text-fill-color: transparent; */
     background-clip: text;
     font-size: 1.2rem;
 }
@@ -318,7 +317,6 @@
     font-size: 1.1rem;
 }
 
-/* Inline Editing Styles */
 .price-container,
 .edit-container {
     display: flex;
@@ -367,7 +365,6 @@
     color: var(--accent-red);
 }
 
-/* ========== Responsive Design ========== */
 @media (max-width: 768px) {
     .app-container {
         padding: 1rem;
